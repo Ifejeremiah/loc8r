@@ -32,7 +32,7 @@ legend {
   border-color: white;
 }
 .navbar-light .navbar-toggler-icon {
-  background-image: url("data:image/svgxml;charset=utf8,%3Csvg viewBox='0 0 30 30'xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='white' stroke-width='2'stroke-linecap='round'stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+  color: #fff;
 }
 
 .navbar-light .navbar-nav .nav-link,
@@ -87,4 +87,13 @@ h1 small {
 }
 .facilities span.badge {
   margin-right: 2px;
+  color: #fff;
+}
+
+span.review {
+  margin: 0 20px;
+}
+
+small.review {
+  margin: 0;
 }
