@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-// Define Schemas
+// ------------     SUBDOCUMENTS
 const openingTimeSchema = new mongoose.Schema({
   days: {
     type: String,
@@ -14,8 +14,11 @@ const openingTimeSchema = new mongoose.Schema({
   }
 });
 
+// ------------     SUBDOCUMENTS
 const reviewSchema = new mongoose.Schema({
-  author: String,
+  author: {
+    type: String,
+  },
   rating: {
     type: Number,
     required: true,
@@ -29,7 +32,7 @@ const reviewSchema = new mongoose.Schema({
   reviewText: String
 });
 
-// For location info page
+// -------------     MAIN DATA STRUCTURE
 const locationSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -50,7 +53,7 @@ const locationSchema = new mongoose.Schema({
   openingTimes: [openingTimeSchema],
   reviews: [reviewSchema]
 });
-locationSchema.index({ coord: '2dsphere' });
+locationSchema.index({ coords: '2dsphere' });
 
 // Model Compiling
-mongoose.model('location', locationSchema);
+mongoose.model('Location', locationSchema);
