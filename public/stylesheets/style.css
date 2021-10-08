@@ -18,6 +18,10 @@ legend {
   color: #fff;
 }
 
+.cards-con {
+  margin-bottom: 20px;
+}
+
 .card {
   background-color: #469ea8;
   padding: 1rem;
@@ -95,4 +99,8 @@ body {
 
 .navbar-light .navbar-nav .nav-link {
   color: #fff;
+}
+
+small.footer {
+padding-bottom: 30px;
 }

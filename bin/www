@@ -7,12 +7,13 @@
 const app = require('../app');
 const debug = require('debug')('loc8r:server');
 const http = require('http');
+const portNumber = '8000'
 
 /**
  * Get port from environment and store in Express.
  */
 
-const port = normalizePort(process.env.PORT || '8000');
+const port = normalizePort(process.env.PORT || portNumber);
 app.set('port', port);
 
 /**

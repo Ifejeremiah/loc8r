@@ -6,10 +6,16 @@ const express = require('express'),
 router
     /* Locations Pages */
     .get('/', ctrlLocations.homeList)
-    .get('/location', ctrlLocations.locationInfo)
-    .get('/location/review/new', ctrlLocations.addReview)
+    .get('/location/:locationsid', ctrlLocations.locationInfo)
 
     // Other Pages 
     .get('/about', ctrlOthers.about);
+
+// Add Reviews Pages 
+router
+    .route('/location/:locationsid/review/new')
+    .get(ctrlLocations.addReview)
+    .post(ctrlLocations.doAddReview);
+
 
 module.exports = router;

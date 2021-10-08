@@ -4,6 +4,11 @@ const Loc = mongoose.model('Location');
 const locationsListByDistance = async (req, res) => {
   const lng = parseInt(req.query.lng);
   const lat = parseInt(req.query.lat);
+  const maxDist = parseInt(req.query.maxdistance);
+  if (!maxDist && maxDist !== 0) {
+    return res.status(400).json({ message: 'Maximum distance query (maxdistance) is required' });
+  };
+
   const near = {
     type: 'Point',
     coordinates: [lng, lat]
@@ -12,10 +17,10 @@ const locationsListByDistance = async (req, res) => {
     distanceField: 'distance.calculated',
     key: 'coords',
     spherical: true,
-    // maxDistance: 20000,
+    maxDistance: maxDist, //Play with this...
     $limit: 10
   };
-  if (!lng || !lat) {
+  if ((!lng && lng !== 0) || (!lat && lat !== 0)) {
     return res.status(404).json({ message: 'lng and lat query queries are required' });
   }
   try {
@@ -34,7 +39,7 @@ const locationsListByDistance = async (req, res) => {
         address: result.address,
         rating: result.rating,
         facilities: result.facilities,
-        distance: `${result.distance.calculated.toFixed()}m`
+        distance: `${result.distance.calculated.toFixed()}`
       }
     });
     res.status(200).json(locations);
@@ -91,7 +96,7 @@ const locationsReadOne = (req, res) => {
         return res.status(404).json({ status: 'LocationId Not Found' });
       } else if (err) {
         return console.log(err),
-          res.status(404).json(err);
+          res.status(400).json(err);
       } res.status(200).json(location);
     });
 };
