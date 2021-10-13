@@ -18,6 +18,7 @@ const openingTimeSchema = new mongoose.Schema({
 const reviewSchema = new mongoose.Schema({
   author: {
     type: String,
+    required: true
   },
   rating: {
     type: Number,
@@ -25,11 +26,14 @@ const reviewSchema = new mongoose.Schema({
     min: 0,
     max: 5
   },
+  reviewText: {
+    type: String,
+    required: true
+  },
   createdOn: {
     type: Date,
     'default': Date.now
-  },
-  reviewText: String
+  }
 });
 
 // -------------     MAIN DATA STRUCTURE

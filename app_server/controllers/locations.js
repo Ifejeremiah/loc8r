@@ -3,7 +3,7 @@ const apiOptions = {
     server: 'http://localhost:8000'
 };
 if (process.env.NODE_ENV === 'production') {
-    apiOptions.server = ''  //Use Heroku's URL
+    apiOptions.server = 'https://loc8r10.herokuapp.com/'  //Use Heroku's URL
 };
 
 const formatDistance = (distance) => {
@@ -129,7 +129,8 @@ const locationInfo = (req, res) => {
 const renderReviewForm = (req, res, { name }) => {
     res.render('location-review-form', {
         title: `Review ${name} on Loc8r`,
-        pageHeader: { title: `Review ${name}` }
+        pageHeader: { title: `Review ${name}` },
+        error: req.query.err
     });
 }
 
@@ -156,15 +157,21 @@ const doAddReview = (req, res) => {
         method: 'POST',
         json: postdata
     };
-    request(requestOptions,
-        (err, { statusCode }, body) => {
-            if (statusCode === 201) {
-                res.redirect(`/location/${locationid}`);
-            } else {
-                showError(req, res, statusCode)
+    if (!postdata.author || !postdata.reviewText || !postdata.rating) {
+        res.redirect(`/location/${locationid}/review/new?err=val`)
+    } else {
+        request(requestOptions,
+            (err, { statusCode }, { name }) => {
+                if (statusCode === 201) {
+                    res.redirect(`/location/${locationid}`);
+                } else if (statusCode === 400 && name && name === 'ValidationError') {
+                    res.redirect(`/location/${locationid}/review/new?err=val`);
+                } else {
+                    showError(req, res, statusCode);
+                }
             }
-        }
-    );
+        );
+    }
 };
 
 module.exports = { homeList, locationInfo, addReview, doAddReview };
