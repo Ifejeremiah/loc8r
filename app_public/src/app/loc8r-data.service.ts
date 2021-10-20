@@ -11,11 +11,11 @@ export class Loc8rDataService {
   constructor(private http: HttpClient) { }
 
   private apiBaseUrl = 'http://localhost:8000/api';
-  public getLocations(): Promise<Location[]> {
-    const lng: number = -0.734342;
-    const lat: number = 51.987326;
-    const maxDistance: number = 2000000000;
+  public getLocations(lat: number, lng: number): Promise<Location[]> {
+    const maxDistance: number = 2000000;
+
     const url: string = `${this.apiBaseUrl}/locations?lng=${lng}&lat=${lat}&maxdistance=${maxDistance}`;
+
     return this.http
       .get(url)
       .toPromise()
