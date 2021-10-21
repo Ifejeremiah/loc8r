@@ -4,7 +4,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 require('./app_api/models/db');
 
-const indexRouter = require('./app_server/routes');
+// const indexRouter = require('./app_server/routes');
 const apiRouter = require('./app_api/routes');
 
 const app = express();
@@ -20,7 +20,8 @@ app.use(cookieParser());
 
 // Static Resourses
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'app_public')));
+//Using Angular as Frontend
+app.use(express.static(path.join(__dirname, 'app_public', 'build')));
 
 // Allowing CORS requests
 app.use('/api', (req, res, next) => {
@@ -30,8 +31,11 @@ app.use('/api', (req, res, next) => {
 });
 
 // Routes
-app.use('/', indexRouter);
+// app.use('/', indexRouter);
 app.use('/api', apiRouter);
+app.get(/(\/about) | (\/location\/[a-z0-9]{24})/, (req, res, next) => {
+  res.sendFile(path.join(__dirname, 'app_public', 'build', 'index.html'));
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
