@@ -33,7 +33,7 @@ app.use('/api', (req, res, next) => {
 // Routes
 // app.use('/', indexRouter);
 app.use('/api', apiRouter);
-app.get(/(\/about) | (\/location\/[a-z0-9]{24})/, (req, res, next) => {
+app.get(/(\/about)|(\/location\/[a-z0-9]{24})/, (req, res, next) => {
   res.sendFile(path.join(__dirname, 'app_public', 'build', 'index.html'));
 });
 
