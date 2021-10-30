@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import { Location, Review } from '../location';
 import { Loc8rDataService } from '../loc8r-data.service';
+import { AuthenticationService } from '../authentication.service';
 
 @Component({
   selector: 'app-location-details',
@@ -23,8 +24,16 @@ export class LocationDetailsComponent implements OnInit {
 
   public formError: string;
 
+  constructor(
+    private loc8rDataService: Loc8rDataService,
+    private authenticationService: AuthenticationService
+  ) { }
+
+  ngOnInit() {
+  }
+
   private formIsValid(): boolean {
-    if (this.newReview.author && this.newReview.rating && this.newReview.reviewText && !(this.newReview.author === ' ') && !(this.newReview.reviewText === ' ')) {
+    if (this.newReview.author && this.newReview.rating && this.newReview.reviewText && !(this.newReview.reviewText === ' ')) {
       return true;
     } else {
       return false;
@@ -40,24 +49,28 @@ export class LocationDetailsComponent implements OnInit {
 
   public onReviewSubmit(): void {
     this.formError = '';
+    this.newReview.author = this.getUsername();
+
     if (this.formIsValid()) {
       this.loc8rDataService.addReviewByLocationId(this.location._id, this.newReview)
         .then((review: Review) => {
-          console.log('Review Saved', review);
           let reviews = this.location.reviews.slice(0);
           reviews.unshift(review);
           this.location.reviews = reviews;
           this.resetAndHideReviewForm();
         });
     } else {
-      console.log('Not Valid.');
-      this.formError = 'All fields required, please try again.';
+      this.formError = 'Please leave a review.';
     }
   };
 
-  constructor(private loc8rDataService: Loc8rDataService) { }
+  public isLoggedIn(): boolean {
+    return this.authenticationService.isLoggedIn();
+  }
 
-  ngOnInit() {
+  public getUsername(): string {
+    const { name } = this.authenticationService.getCurrentUser();
+    return name ? name : 'Guest';
   }
 
 }
