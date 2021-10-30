@@ -64,4 +64,6 @@ process.on('SIGTERM', () => {
   });
 });
 
+// Bringing in Schemas and Models
 require('./locations');
+require('./users');
