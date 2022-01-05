@@ -1,4 +1,5 @@
 const express = require('express');
+
 const router = express.Router();
 
 //JWT for routes authentication

@@ -18,14 +18,15 @@ const routes: Routes = [
   }, {
     path: 'location/:locationid',
     component: DetailsPageComponent
-  },
-  {
+  }, {
     path: 'register',
     component: RegisterComponent
-  },
-  {
+  }, {
     path: 'login',
     component: LoginComponent
+  }, {
+    path: '**',
+    component: HomepageComponent
   }
 ];
 

@@ -40,7 +40,7 @@ userSchema.methods.generateJwt = function () {
     name: this.name,
     email: this.email,
     exp: parseInt(expiry.getTime() / 1000, 10),
-  }, process.env.JWT_SECRET);    //Set Production Environment Variables too eg. $ heroku config:set JWT_SECRET=thisIsSecret
+  }, process.env.JWT_SECRET); 
 };
 
 mongoose.model('User', userSchema);
