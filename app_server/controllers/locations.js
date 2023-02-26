@@ -3,7 +3,7 @@ const apiOptions = {
     server: 'http://localhost:8000'
 };
 if (process.env.NODE_ENV === 'production') {
-    apiOptions.server = 'https://loc8r10.herokuapp.com/'  //Use Heroku's URL
+    apiOptions.server = 'https://loc8r-s47v.onrender.com/'
 };
 
 const formatDistance = (distance) => {

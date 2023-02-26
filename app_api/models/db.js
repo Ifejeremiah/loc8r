@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // Database connection string to open a mongoose connection
-let dbURI = 'mongodb://localhost/loc8r';
+let dbURI = 'mongodb+srv://ifejeremiah:kCF7NSjfh3Jgkkfq@loc8r.3mi1g.mongodb.net/loc8r?retryWrites=true&w=majority';
 if (process.env.NODE_ENV === 'production') {
   dbURI = process.env.MONGODB_URI;
 }
@@ -57,9 +57,9 @@ process.on('SIGINT', () => {
   });
 });
 
-// For Heroku application termination
+// For deployed app termination
 process.on('SIGTERM', () => {
-  gracefulShutdown('Heroku app shutdown', () => {
+  gracefulShutdown('Deployed app shutdown', () => {
     process.exit(0);
   });
 });

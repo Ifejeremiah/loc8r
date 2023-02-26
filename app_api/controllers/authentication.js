@@ -31,12 +31,11 @@ const login = (req, res) => {
     return req.status(400).json({ msg: 'All fields required' });
   }
   passport.authenticate('local', (err, user, info) => {
-    let token;
     if (err) {
       return res.status(404).json(err);
     }
     if (user) {
-      token = user.generateJwt();
+      const token = user.generateJwt();
       res.status(200).json({ token });
     } else {
       res.status(401).json(info);

@@ -59,9 +59,3 @@ typings/
 
 # next.js build output
 .next
-
-#heroku remote branch 
-git-heroku-remote-branch.txt
-
-# heroku remote branch
-loc8r10
