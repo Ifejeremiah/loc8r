@@ -1,10 +1,7 @@
 const mongoose = require('mongoose');
 
 // Database connection string to open a mongoose connection
-let dbURI = 'mongodb+srv://ifejeremiah:kCF7NSjfh3Jgkkfq@loc8r.3mi1g.mongodb.net/loc8r?retryWrites=true&w=majority';
-if (process.env.NODE_ENV === 'production') {
-  dbURI = process.env.MONGODB_URI;
-}
+let dbURI = process.env.MONGODB_URI;
 
 // Connection to database
 mongoose.connect(dbURI, { useNewUrlParser: true });
